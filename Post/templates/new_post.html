@@ -1,0 +1,9 @@
+    {%extends 'base.html'%}
+    {%block content%}
+    <form class='form'method='POST' action='/new_post/'>
+        <input type='LongText' class='form-control' name='body' placeholder="What's on your mind??" required>
+        <button class='btn btn-primary btn-sm' type='submit' >Post</button>
+        {%csrf_token%}
+
+    </form>
+    {%endblock%}

@@ -1,0 +1,52 @@
+    
+{% extends "base.html" %}
+{% block content %}
+<form class='form'method='POST' action='/new_post/'>
+  <textarea class='form-control' name='body' placeholder="What's on your mind??" required></textarea>
+  <button class='btn btn-primary btn-sm' type='submit' >Post</button>
+  {%csrf_token%}
+
+</form><br>
+    {% for post in posts %}
+    <div class='card mb-2'>
+       <div class="card" style=color:red><span class='ml-2'>{{post.usr.username}} posted on {{post.date}}</span></div>
+       <div class="card-body">{{post.body}}</div>
+       <form method="POST" action='/like/{{post.id}}'>
+          {%if post.is_liked%}
+          <button  class='btn btn-primary btn-md' >liked({{post.like}})</button>
+          {%else%}
+          <button>like({{post.like}})</button>
+          {%endif%}
+          {%csrf_token%}
+       </form>
+       
+       <div class="card button-group">
+          <form method='POST' action='save_comment/{{post.id}}/' class='form-control'>
+            <textarea name='body' required style='width:500px'></textarea>
+            <button class='btn btn-primary btn-sm' type=submit >Comment</button>
+            {%csrf_token%}
+          </form>
+        </div>
+
+    
+        {%for cmt in post.cmt%}
+        <div class='card'>
+          {{cmt.commentor.username}}: {{cmt.body}}      
+        </div>
+        {%endfor%}
+    </div>
+   
+     {%endfor%}   
+  
+  
+     {%endblock%}
+{%block friend%}
+
+
+<div class="card " style='position:fixed'>
+    {%for frien in friend%}
+   <a href='/message/message/{{frien.user.id}}'><div class="card">{{frien.user.first_name}} {{frien.user.last_name}}</div> </a>
+    {%endfor%}
+</div>
+
+{%endblock%}

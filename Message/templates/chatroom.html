@@ -1,0 +1,36 @@
+{%extends 'base.html'%}
+{%block content%}
+<div class="card" >
+    <a href='#'><div class="card" style='background-color:rgba(74, 50, 211, 0.767);color:azure;padding:8px'><b><span class='ml-1 h5' >{{arko_ko_name.first_name}} {{arko_ko_name.last_name}}</span></b></span></div></a>
+    <div class='card' style='height:500px;overflow-y:scroll;background-color:rgba(213, 211, 223, 0.767)'>
+    {%for message in messages%}
+    {%if message.truth_value%}
+    <div class="card ml-auto mb-2 mr-2" style='background-color:rgb(109, 109, 184);
+                                         color:azure;
+                                         height:auto;
+                                         padding-left:10px;
+                                         padding-right:10px;
+                                         border-radius:5px;
+                                         font-size:18px;
+                                         max-width:60%'> {{message.body}}</div>
+    {%else%}
+    <div class="card mr-auto mb-2 ml-2" style='background-color:rgb(113, 201, 113);
+                                            color:azure;
+                                            height:auto;
+                                            padding-left:10px;
+                                            padding-right:10px;
+                                            border-radius:5px;
+                                            font-size:18px;
+                                            max-width:60%'>{{message.body}}</div>
+    {%endif%}
+    {%endfor%}
+    </div>  
+    <div class="card" style='background-color:rgb(74, 50, 211, 0.767) '>
+        <form style='background-color:rgb(74, 50, 211, 0.767)' method='POST' action='/message/message/{{arko_ko_name.id}}' class='form-control'>
+            <textarea name='body' placeholder="Type message here..." rows=1 cols=50></textarea>
+            <button type='submit' class='btn btn-primary btn-sm'>Send</button>
+            {%csrf_token%}
+        </form>
+    </div>
+</div>
+{%endblock%}
