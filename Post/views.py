@@ -31,6 +31,7 @@ def show_post(request):
                         friend.id = friend.receiver
                 friend.user=User.objects.get(id=friend.id)
     return render(request,'home.html',{'posts':posts,'friend':friend_table})
+    
 @login_required(login_url='/login')
 def new_post(request):
         if request.method=='POST':
@@ -40,6 +41,7 @@ def new_post(request):
                 new_post.save()
                 return redirect('/')
         return render(request,'new_post.html')
+
 @login_required(login_url='/login')
 def save_comment(request,id):
         if request.POST['body']:
